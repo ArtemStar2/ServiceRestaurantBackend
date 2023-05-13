@@ -94,6 +94,9 @@ class SqlDatabase {
     try {
       const result = await client.query(sql, params);
       return result.rows;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error executing query');
     } finally {
       client.release();
     }
