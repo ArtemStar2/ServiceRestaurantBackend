@@ -1,5 +1,6 @@
 // const mysql = require('mysql2/promise');
-const { Pool } = require('pg');
+// const { Pool } = require('pg');
+const { db } = require('@vercel/postgres');
 function deleteFieldFromArrayObjects(arr, field) {
   for (let i = 0; i < arr.length; i++) {
     if (arr[i][field]) {
@@ -85,14 +86,14 @@ function deleteFieldFromArrayObjects(arr, field) {
 //   }
 // }
 class SqlDatabase {
-  constructor(config) {
-    this.pool = new Pool(config);
-  }
+  // constructor(config) {
+  //   // this.pool = new Pool(config);
+  // }
 
   async query(sql, params) {
-    const client = await this.pool.connect();
+    const client = await db.connect();
     try {
-      const result = await client.query(sql, params);
+      const result = await client.sql(sql, params);
       return result.rows;
     } catch (error) {
       console.error(error);
