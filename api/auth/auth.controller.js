@@ -3,6 +3,14 @@ const authService = require('./auth.service')
 class authControllers{
     async auth(req, res, next){
         try{
+            res.setHeader('Access-Control-Allow-Credentials', true)
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+            res.setHeader(
+                'Access-Control-Allow-Headers',
+                'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+            )
             const { login } = req.body
             const userData = await authService.auth(login)
             res.cookie('refreshToken', userData.refreshToken, { maxAge: 30*24*60*60*1000, httpOnly: true})
