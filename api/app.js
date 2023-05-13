@@ -22,12 +22,7 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-var corsOptions = {
-    origin: '*',
-    optionsSuccessStatus: 200,
-  }
-app.use(cors(corsOptions));
-// app.use(cors({origin: process.env.CLIENT_URL}));
+app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
