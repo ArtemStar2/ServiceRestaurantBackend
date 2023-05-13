@@ -91,9 +91,6 @@ class SqlDatabase {
   // }
 
   async query(sql, params) {
-    console.log('query')
-    console.log(sql)
-    console.log(params);
     const client = await db.connect();
     try {
       const result = await client.query(sql, params);
@@ -151,9 +148,6 @@ class SqlDatabase {
   }
 
   async update(table, data, id) {
-    console.log('update');
-    console.log(data)
-
     const keys = Object.keys(data);
     const values = Object.values(data);
     const setFields = keys.map((key, index) => `${key} = $${index + 1}`).join(', ');

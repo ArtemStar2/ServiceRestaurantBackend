@@ -23,14 +23,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 
 app.use(fileUpload())
-app.use(function (request, response, next) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-  });
 app.use(cors({
     credentials: true,
-    origin: 'https://service-restaurant-admin-panel.vercel.app/'
+    origin: process.env.CLIENT_URL
 }))
 // app.use('/uploads', express.static(path.join(__dirname,'../uploads')))
 app.use(express.static(path.join(__dirname, 'public')));
