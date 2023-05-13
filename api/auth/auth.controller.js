@@ -6,7 +6,6 @@ class authControllers{
             const { login } = req.body
             const userData = await authService.auth(login)
             res.cookie('refreshToken', userData.refreshToken, { maxAge: 30*24*60*60*1000, httpOnly: true})
-            res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL);
             return res.status(200).json(userData);
         } catch(e){
             next(e)
