@@ -17,14 +17,13 @@ const orderRoutes = require('./orders/orders.router')
 // /Routers
 
 // Config
-
+app.use(cors({
+    origin: process.env.CLIENT_URL
+}))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 app.use(fileUpload())
-app.use(cors({
-    origin: process.env.CLIENT_URL
-}))
 // app.use('/uploads', express.static(path.join(__dirname,'../uploads')))
 app.use(express.static(path.join(__dirname, 'public')));
 // /Config
