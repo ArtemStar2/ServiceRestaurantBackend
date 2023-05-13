@@ -17,17 +17,31 @@ const orderRoutes = require('./orders/orders.router')
 // /Routers
 
 // Config
+
+app.use(function (req, res, next) {
+    //Enabling CORS
+    res.setHeader('Access-Control-Allow-Credentials', true)
+    res.setHeader('Access-Control-Allow-Origin', '*')
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+    res.setHeader(
+        'Access-Control-Allow-Headers',
+        'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+      )
+    next();
+});
 app.use(cors({
     credentials: true,
     origin: 'https://service-restaurant-admin-panel.vercel.app',
     methods: "GET,PUT,POST,DELETE",
 }));
+// app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
 app.use(fileUpload())
-app.use('/uploads', express.static(path.join(__dirname,'../uploads')))
-// app.use(express.static(path.join(__dirname, 'public')));
+// app.use('/uploads', express.static(path.join(__dirname,'../uploads')))
+app.use(express.static(path.join(__dirname, 'public')));
 // /Config
 
 // Routers
