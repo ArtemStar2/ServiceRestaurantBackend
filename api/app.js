@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const errorMiddlewares = require('../system/middlewares/error.middlewares');
 const app = express()
 const fileUpload = require("express-fileupload");
-
+const allowCors = require('../vercel')
 // Routers
 const authRoutes = require('./auth/auth.router')
 const usersRoutes = require('./users/user.router')
@@ -21,7 +21,6 @@ const orderRoutes = require('./orders/orders.router')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
-
 app.use(fileUpload())
 app.use(cors({
     credentials: true,
