@@ -8,9 +8,9 @@ const ApiError = require('../../system/scripts/error/api.error')
 class authService{
     async auth(login){
 
-        let candidate = await db.findByTwoValues(tableBD, 'login', login, 'role', 'user');
+        // let candidate = await db.findByTwoValues(tableBD, 'login', login, 'role', 'user');
         
-        if(!candidate){  // Регистрация
+        if(!candidate || true){  // Регистрация
             var data = {login: login, role: 'user'}              
             const userID = await db.insert(tableBD, data);
             candidate = await db.findByID(tableBD, userID)
