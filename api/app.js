@@ -17,9 +17,7 @@ const orderRoutes = require('./orders/orders.router')
 // /Routers
 
 // Config
-app.use(cors({
-    origin: process.env.CLIENT_URL
-}))
+app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
