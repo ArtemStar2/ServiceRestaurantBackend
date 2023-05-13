@@ -100,7 +100,7 @@ class SqlDatabase {
   }
   async findById(table, id) {
     const query = `SELECT * FROM ${table} WHERE id = $1`;
-    const result = await client.query(query, [id]);
+    const result = await this.query(query, [id]);
     return result.rows[0];
   }
 
@@ -112,12 +112,8 @@ class SqlDatabase {
 
   async findByTwoValues(table, column1, value1, column2, value2) {
     try {
-      const query = {
-        text: `SELECT * FROM ${table} WHERE ${column1}=$1 AND ${column2}=$2`,
-        values: [value1, value2],
-      };
       // отправляем запрос в БД
-      const result = await this.pool.query(query);
+      const result = await this.pool.query(`SELECT * FROM ${table} WHERE ${column1}=$1 AND ${column2}=$2`, [value1, value2]);
       // возвращаем результат
       return result.rows;
     } catch (error) {
@@ -142,7 +138,7 @@ class SqlDatabase {
     const placeholders = Object.keys(data).map((_, index) => `$${index + 1}`).join(', ');
     const values = Object.values(data);
     const result = await this.query(`INSERT INTO ${table} (${columns}) VALUES (${placeholders}) RETURNING id`, values);
-    return result[0].id;
+    return result[0];
   }
 
   async update(table, id, data) {
@@ -150,7 +146,6 @@ class SqlDatabase {
     const values = Object.values(data);
     await this.query(`UPDATE ${table} SET ${columns} WHERE id = $${values.length + 1}`, [...values, id]);
   }
-
   async delete(table, id) {
     await this.query(`DELETE FROM ${table} WHERE id = $1`, [id]);
   }
