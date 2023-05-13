@@ -2,6 +2,7 @@ const authService = require('./auth.service')
 
 class authControllers{
     async auth(req, res, next){
+        res.set('Access-Control-Allow-Origin', '*');
         try{
             const { login } = req.body
             const userData = await authService.auth(login)
