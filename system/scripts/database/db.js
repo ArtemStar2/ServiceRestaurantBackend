@@ -113,17 +113,18 @@ class SqlDatabase {
     return res.rows[0];
   }
 
-  // async findByTwoValues(table, column1, value1, column2, value2) {
-  //   try {
-  //     // отправляем запрос в БД
-  //     const result = await this.pool.query(`SELECT * FROM ${table} WHERE ${column1}=$1 AND ${column2}=$2`, [value1, value2]);
-  //     // возвращаем результат
-  //     return result.rows;
-  //   } catch (error) {
-  //     console.error(error);
-  //     throw new Error('Error executing query');
-  //   }
-  // }
+  async findByTwoValues(table, column1, value1, column2, value2) {
+    return null;
+    try {
+      // отправляем запрос в БД
+      const result = await this.pool.query(`SELECT * FROM ${table} WHERE ${column1}=$1 AND ${column2}=$2`, [value1, value2]);
+      // возвращаем результат
+      return result.rows;
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error executing query');
+    }
+  }
 
   async get(table, id) {
     const result = await this.query(`SELECT * FROM ${table} WHERE id = $1`, [id]);
