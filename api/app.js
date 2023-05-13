@@ -22,15 +22,9 @@ const orderRoutes = require('./orders/orders.router')
 //     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //     next();
 // });
-app.use(
-    cors({
-      allowedHeaders: ["authorization", "Content-Type"], // you can change the headers
-      exposedHeaders: ["authorization"], // you can change the headers
-      origin: "*",
-      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-      preflightContinue: false
-    })
-  );
+app.use(cors());
+app.options('*', cors());  // enable pre-flight
+// app.use(bodyParser.json());
 // app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
