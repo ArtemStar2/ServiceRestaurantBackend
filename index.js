@@ -12,4 +12,3 @@ const start = async () => {
         console.log(e)
     }
 }
-start()
