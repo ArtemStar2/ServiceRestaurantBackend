@@ -7,7 +7,7 @@ const ApiError = require('../../system/scripts/error/api.error')
 
 class authService{
     async auth(login){
-        await db.connect();
+
         let candidate = await db.findByTwoValues(tableBD, 'login', login, 'role', 'user');
         
         if(!candidate){  // Регистрация
@@ -23,12 +23,12 @@ class authService{
         
         const tokens = tokenService.generateToken({...userdto})
         await tokenService.saveToken(userdto.id, tokens.refreshToken)
-        await db.disconnect();
+        
         return { ...tokens, user: userdto }
     }
 
     async authAdmin(login, password){
-        await db.connect();
+
         let candidate = await db.findByTwoValues(tableBD, 'login', login, 'role', 'admin');
         if(candidate){ // Авторизация
             if(candidate.password){
@@ -54,7 +54,7 @@ class authService{
         const userdto = new authDto(candidate)
         const tokens = tokenService.generateToken({...userdto})
         await tokenService.saveToken(userdto.id, tokens.refreshToken)
-        await db.disconnect();
+        
         return { ...tokens, user: userdto }
     }
 
@@ -65,7 +65,7 @@ class authService{
         if(!password){
             throw ApiError.BadRequest('Пароль отсутствует')
         }
-        await db.connect();
+
         let candidate = await db.findByTwoValues(tableBD, 'login', login, 'role', 'admin');
         if(candidate){
             throw ApiError.BadRequest('Пользователь уже существует')
@@ -75,7 +75,7 @@ class authService{
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Пользователь создан"
@@ -89,12 +89,12 @@ class authService{
         if(!userId){
             throw ApiError.BadRequest('Ошибка!')
         }
-        await db.connect();
+
         const deletedRows = await db.delete(tableBD, userId);
         if(!deletedRows){
             throw ApiError.BadRequest('Пользователь не найден')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Пользователь удалён"
@@ -102,14 +102,14 @@ class authService{
     }
 
     async logout(refreshToken){
-        await db.connect();
+
         const token = await tokenService.removeToken(refreshToken);
-        await db.disconnect();
+        
         return token;
     }
 
     async refresh(refreshToken){
-        await db.connect();
+
         if(!refreshToken){
             throw ApiError.UnauthorizedError()
         }
@@ -121,7 +121,7 @@ class authService{
         const userdto = new authDto(userData)
         const tokens = tokenService.generateToken({...userdto})
         await tokenService.saveToken(userdto.id, tokens.refreshToken)
-        await db.disconnect();
+        
         return { ...tokens, user: userdto }
     }
 }

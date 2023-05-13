@@ -7,16 +7,16 @@ const path = require('path');
 
 class productsService{
     async getAllProduct(){
-        await db.connect();
+        
         const users = await db.getAll(tableBD);
-        await db.disconnect();
+        
         return users;
     }
     
     async getProductOne(id){
-        await db.connect();
+        
         const users = await db.findByID(tableBD, id);
-        await db.disconnect();
+        
         return users;
     }
 
@@ -25,7 +25,7 @@ class productsService{
             throw ApiError.BadRequest('Доступ только администраторам')
         }
         
-        await db.connect();
+        
         let candidate = await db.findByID(tableBD, id);
         var data = {};
         if(name){
@@ -59,7 +59,7 @@ class productsService{
         if(!await db.update(tableBD, data, candidate.id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Товар изменён"
@@ -83,7 +83,7 @@ class productsService{
         if(!category){
             throw ApiError.BadRequest('Не выбрана категория')
         }
-        await db.connect();
+        
         let candidate = await db.findByValue(tableBD, 'name', name);
         if(candidate){
             throw ApiError.BadRequest('Товар уже существует')
@@ -96,7 +96,7 @@ class productsService{
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Товар добавленный"
@@ -110,12 +110,12 @@ class productsService{
         if(!productId){
             throw ApiError.BadRequest('Ошибка!')
         }
-        await db.connect();
+        
         const deletedRows = await db.delete(tableBD, productId);
         if(!deletedRows){
             throw ApiError.BadRequest('Товар не найден')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Товар удалён"

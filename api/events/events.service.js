@@ -7,16 +7,16 @@ const path = require('path');
 
 class eventsService{
     async getAllEvents(){
-        await db.connect();
+        
         const users = await db.getAll(tableBD);
-        await db.disconnect();
+        
         return users;
     }
     
     async getEventOne(id){
-        await db.connect();
+        
         const users = await db.findByID(tableBD, id);
-        await db.disconnect();
+        
         return users;
     }
 
@@ -25,7 +25,7 @@ class eventsService{
             throw ApiError.BadRequest('Доступ только администраторам')
         }
         
-        await db.connect();
+        
         let candidate = await db.findByID(tableBD, id);
         var data = {};
         if(name){
@@ -51,7 +51,7 @@ class eventsService{
         if(!await db.update(tableBD, data, candidate.id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Мароприятие изменёно"
@@ -69,7 +69,7 @@ class eventsService{
         if(!images){
             throw ApiError.BadRequest('Картинка отсутствует')
         }
-        await db.connect();
+        
         let candidate = await db.findByValue(tableBD, 'date', date);
         if(candidate){
             throw ApiError.BadRequest('На эту дату уже есть Мароприятие')
@@ -82,7 +82,7 @@ class eventsService{
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Мароприятие добавлено"
@@ -96,12 +96,12 @@ class eventsService{
         if(!EventId){
             throw ApiError.BadRequest('Ошибка!')
         }
-        await db.connect();
+        
         const deletedRows = await db.delete(tableBD, EventId);
         if(!deletedRows){
             throw ApiError.BadRequest('Мароприятие не найден')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Мароприятие удалёно"

@@ -7,20 +7,20 @@ function checkDateOverlap(start1, end1, start2, end2) {
 }
 class tableService{
     async getAllTables(){
-        await db.connect();
+        
         const tables = await db.getAll(tableBD);
-        await db.disconnect();
+        
         return tables;
     }
     async getTableOne(id){
-        await db.connect();
+        
         const table = await db.findByID(tableBD, id);
-        await db.disconnect();
+        
         return table;
     }
 
     async upldateTable(id, dateStart, dateEnd, table_id, iduser, role){
-        await db.connect();
+        
         let candidate = await db.findByID(tableBD, id);
         if(role != "admin" && iduser != candidate.userId){
             throw ApiError.BadRequest('Доступ только администраторам')
@@ -38,7 +38,7 @@ class tableService{
         if(!await db.update(tableBD, data, id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Бронь изменена"
@@ -58,7 +58,7 @@ class tableService{
         if(!table_id){
             throw ApiError.BadRequest('Отсутствует номер стола')
         }
-        await db.connect();
+        
         const tables = await db.getAll(tableBD);
         tables.forEach(element => {
             if(!checkDateOverlap(new Date(element.dateStart), new Date(element.dateEnd), new Date(dateStart), new Date(dateEnd))){
@@ -69,7 +69,7 @@ class tableService{
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Бронь добавлена"
@@ -77,7 +77,7 @@ class tableService{
     }
 
     async deleteTable(bronId, iduser, role){
-        await db.connect();
+        
         let candidate = await db.findByID(tableBD, bronId);
         if(role != "admin" && iduser != candidate.userId){
             throw ApiError.BadRequest('Доступ только администраторам')
@@ -89,7 +89,7 @@ class tableService{
         if(!deletedRows){
             throw ApiError.BadRequest('Бронь не найдена')
         }
-        await db.disconnect();
+        
         return { 
             success: true,
             massage: "Бронь удалена"
