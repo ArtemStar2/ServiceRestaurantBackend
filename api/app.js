@@ -17,7 +17,7 @@ const orderRoutes = require('./orders/orders.router')
 // /Routers
 
 // Config
-app.use(cors({credentials: true,origin: process.env.CLIENT_URL}));
+app.use(cors({credentials: true,origin: 'https://service-restaurant-admin-panel.vercel.app'}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
