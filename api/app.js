@@ -31,6 +31,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 // /Config
 
 // Routers
+
+app.use('/', (req, res, next) =>{
+    res.status(200).json(userData);
+}) // auth
 app.use('/api/auth', authRoutes) // auth
 app.use('/api/users', usersRoutes) // users
 app.use('/api/product', productRoutes) // product
