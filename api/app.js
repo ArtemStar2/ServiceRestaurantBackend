@@ -24,17 +24,13 @@ app.use(cookieParser())
 app.use(fileUpload())
 app.use(cors({
     // credentials: true,
-    origin: '*'
+    origin: process.env.CLIENT_URL
 }))
 // app.use('/uploads', express.static(path.join(__dirname,'../uploads')))
 app.use(express.static(path.join(__dirname, 'public')));
 // /Config
 
 // Routers
-
-app.use('/', (req, res, next) =>{
-    res.status(200).json(userData);
-}) // auth
 app.use('/api/auth', authRoutes) // auth
 app.use('/api/users', usersRoutes) // users
 app.use('/api/product', productRoutes) // product
