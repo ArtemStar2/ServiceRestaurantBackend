@@ -134,11 +134,16 @@ class SqlDatabase {
   }
 
   async insert(table, data) {
-    const columns = Object.keys(data).join(', ');
-    const placeholders = Object.keys(data).map((_, index) => `$${index + 1}`).join(', ');
-    const values = Object.values(data);
-    const result = await this.query(`INSERT INTO ${table} (${columns}) VALUES (${placeholders}) RETURNING id`, values);
-    return result[0];
+    try {
+      const columns = Object.keys(data).join(', ');
+      const placeholders = Object.keys(data).map((_, index) => `$${index + 1}`).join(', ');
+      const values = Object.values(data);
+      const result = await this.query(`INSERT INTO ${table} (${columns}) VALUES (${placeholders}) RETURNING id`, values);
+      return result[0];
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error executing query');
+    }
   }
 
   async update(table, id, data) {
