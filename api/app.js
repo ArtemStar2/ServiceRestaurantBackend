@@ -17,6 +17,16 @@ const orderRoutes = require('./orders/orders.router')
 // /Routers
 
 // Config
+
+app.use(function (req, res, next) {
+    //Enabling CORS
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
+    res.setHeader("Access-Control-Allow-Methods","PUT, POST, GET, DELETE, PATCH, OPTIONS");
+    next();
+});
 app.use(cors({
     credentials: true,
     origin: process.env.CLIENT_URL,
