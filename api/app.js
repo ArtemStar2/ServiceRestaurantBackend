@@ -25,7 +25,7 @@ app.use(cookieParser())
 app.use(fileUpload())
 app.use(cors({
     credentials: true,
-    origin: process.env.CLIENT_URL
+    origin: 'https://service-restaurant-admin-panel.vercel.app/'
 }))
 // app.use('/uploads', express.static(path.join(__dirname,'../uploads')))
 app.use(express.static(path.join(__dirname, 'public')));
