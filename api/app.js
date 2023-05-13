@@ -17,12 +17,21 @@ const orderRoutes = require('./orders/orders.router')
 // /Routers
 
 // Config
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-app.use(cors({origin: process.env.CLIENT_URL}));
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
+app.use(
+    cors({
+      allowedHeaders: ["authorization", "Content-Type"], // you can change the headers
+      exposedHeaders: ["authorization"], // you can change the headers
+      origin: "*",
+      methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+      preflightContinue: false
+    })
+  );
+// app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser())
