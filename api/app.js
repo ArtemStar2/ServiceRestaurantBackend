@@ -19,17 +19,17 @@ const orderRoutes = require('./orders/orders.router')
 // Config
 
 app.all('*', function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Origin", process.env.CLIENT_URL);
     res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type,token");
     res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
     res.header("Content-Type", "application/json;charset=utf-8");
     next();
 });
-app.use(cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-    methods: "GET,PUT,POST,DELETE",
-}));
+// app.use(cors({
+//     credentials: true,
+//     origin: process.env.CLIENT_URL,
+//     methods: "GET,PUT,POST,DELETE",
+// }));
 // app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
