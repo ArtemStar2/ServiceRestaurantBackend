@@ -32,12 +32,15 @@ class TokenService{
 
     async saveToken(userID, refreshToken){
         const tokenData = await db.findByValue(tableToken, 'userID', userID);
+        
         if(tokenData){
             const newData = { userID: userID, refreshToken: refreshToken };
-            const affectedRows = await db.update(tableToken, newData, { id: tokenData.id });
+            console.log(tokenData);
+            const affectedRows = await db.update(tableToken, newData, tokenData.id);
             return affectedRows;
         } 
         const dataToken = { userID: userID, refreshToken: refreshToken};
+        console.log(dataToken);
         const token = await db.insert(tableToken, dataToken);
         return token;
     }

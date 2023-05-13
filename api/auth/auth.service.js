@@ -11,6 +11,7 @@ class authService{
         let candidate = await db.findByTwoValues(tableBD, 'login', login, 'role', 'user');
         
         if(!candidate){  // Регистрация
+            console.log(candidate);
             var data = {login: login, role: 'user'}              
             const userID = await db.insert(tableBD, data);
             candidate = await db.findByID(tableBD, userID)
@@ -23,7 +24,6 @@ class authService{
         
         const tokens = tokenService.generateToken({...userdto})
         await tokenService.saveToken(userdto.id, tokens.refreshToken)
-        
         return { ...tokens, user: userdto }
     }
 

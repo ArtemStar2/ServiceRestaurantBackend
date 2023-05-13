@@ -32,15 +32,15 @@ function deleteFieldFromArrayObjects(arr, field) {
 //   }
 
 //   // Добавление
-//   async insert(table, data) {
-//     try {
-//       const result = await this.connection.query(`INSERT INTO ${table} SET ?`, data);
-//       return result[0].insertId;
-//     }catch(err){
-//       console.error(err);
-//       return null;
-//     }
-//   }
+  // async insert(table, data) {
+  //   try {
+  //     const result = await this.connection.query(`INSERT INTO ${table} SET ?`, data);
+  //     return result[0].insertId;
+  //   }catch(err){
+  //     console.error(err);
+  //     return null;
+  //   }
+  // }
 //   // Изменение
 //   async update(table, data, where) {
 //     try {
@@ -91,9 +91,12 @@ class SqlDatabase {
   // }
 
   async query(sql, params) {
+    console.log('query')
+    console.log(sql)
+    console.log(params);
     const client = await db.connect();
     try {
-      const result = await client.sql(sql, params);
+      const result = await client.query(sql, params);
       return result.rows;
     } catch (error) {
       console.error(error);
@@ -102,25 +105,34 @@ class SqlDatabase {
       client.release();
     }
   }
-  async findById(table, id) {
+  async insert(table, data) {
+    try {
+      const columns = Object.keys(data).join(', ');
+      const placeholders = Object.keys(data).map((_, index) => `$${index + 1}`).join(', ');
+      const values = Object.values(data);
+      const result = await this.query(`INSERT INTO ${table} (${columns}) VALUES (${placeholders}) RETURNING id`, values);
+      return result[0];
+    } catch (error) {
+      console.error(error);
+      throw new Error('Error executing query');
+    }
+  }
+
+  async findByID(table, id) {
     const query = `SELECT * FROM ${table} WHERE id = $1`;
     const result = await this.query(query, [id]);
-    return result.rows[0];
+    return result;
   }
 
   async findByValue(table, column, value) {
-    const queryText = `SELECT * FROM ${table} WHERE ${column} = $1`;
-    const res = await this.query(queryText, [value]);
-    return res.rows[0];
+    const res = await this.query(`SELECT * FROM ${table} WHERE ${column} = $1`, [value]);
+    return res[0];
   }
 
   async findByTwoValues(table, column1, value1, column2, value2) {
-    return null;
     try {
-      // отправляем запрос в БД
-      const result = await this.pool.query(`SELECT * FROM ${table} WHERE ${column1}=$1 AND ${column2}=$2`, [value1, value2]);
-      // возвращаем результат
-      return result.rows;
+      const result = await this.query(`SELECT * FROM ${table} WHERE ${column1} = $1 AND ${column2} = $2`, [value1, value2]);
+      return result[0];
     } catch (error) {
       console.error(error);
       throw new Error('Error executing query');
@@ -138,26 +150,23 @@ class SqlDatabase {
     return result;
   }
 
-  async insert(table, data) {
-    try {
-      const columns = Object.keys(data).join(', ');
-      const placeholders = Object.keys(data).map((_, index) => `$${index + 1}`).join(', ');
-      const values = Object.values(data);
-      const result = await this.query(`INSERT INTO ${table} (${columns}) VALUES (${placeholders}) RETURNING id`, values);
-      return result[0];
-    } catch (error) {
-      console.error(error);
-      throw new Error('Error executing query');
-    }
-  }
+  async update(table, data, id) {
+    console.log('update');
+    console.log(data)
 
-  async update(table, id, data) {
-    const columns = Object.keys(data).map((column, index) => `${column} = $${index + 1}`).join(', ');
+    const keys = Object.keys(data);
     const values = Object.values(data);
-    await this.query(`UPDATE ${table} SET ${columns} WHERE id = $${values.length + 1}`, [...values, id]);
-  }
-  async delete(table, id) {
-    await this.query(`DELETE FROM ${table} WHERE id = $1`, [id]);
+    const setFields = keys.map((key, index) => `${key} = $${index + 1}`).join(', ');
+    const sql = `UPDATE ${table} SET ${setFields} WHERE id = $${keys.length + 1}`;
+    const params = [...values, id];
+  
+    try {
+      const result = await this.query(sql, params);
+      return result.rowCount;
+    } catch (error) {
+      console.error(`Error updating record in table ${table}: ${error}`);
+      throw error;
+    }
   }
 }
 
