@@ -14,9 +14,14 @@ class authService{
             console.log(candidate);
             var data = {login: login, role: 'user'}              
             const userID = await db.insert(tableBD, data);
-            candidate = await db.findByID(tableBD, userID)
+            console.log(userID.id);
+            candidate = await db.findByID(tableBD, userID.id)
         }
         
+        if(candidate.length > 0)
+            candidate = candidate[0];
+
+            console.log(candidate);
         const userdto = new authDto(candidate)
         if(userdto.role == "admin"){
             throw ApiError.BadRequest('Нельзя войти через этот аккаунт')

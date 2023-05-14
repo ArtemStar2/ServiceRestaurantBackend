@@ -92,6 +92,9 @@ class SqlDatabase {
 
   async query(sql, params) {
     const client = await db.connect();
+    console.log("sql")
+    console.log(sql)
+    console.log(params);
     try {
       const result = await client.query(sql, params);
       return result.rows;
@@ -161,6 +164,10 @@ class SqlDatabase {
       console.error(`Error updating record in table ${table}: ${error}`);
       throw error;
     }
+  }
+  async delete(table, id) {
+    const result = await this.query(`DELETE FROM ${table} WHERE id = $1`, [id]);
+    return true;
   }
 }
 

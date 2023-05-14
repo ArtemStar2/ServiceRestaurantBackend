@@ -29,29 +29,29 @@ class TokenService{
             return null;
         }
     }
-
     async saveToken(userID, refreshToken){
         const tokenData = await db.findByValue(tableToken, 'userID', userID);
-        
+        console.log("tokenData");
+        console.log(tokenData);
         if(tokenData){
+            console.log('YEST');
             const newData = { userID: userID, refreshToken: refreshToken };
-            console.log(tokenData);
             const affectedRows = await db.update(tableToken, newData, tokenData.id);
             return affectedRows;
         } 
+        console.log('NET');
         const dataToken = { userID: userID, refreshToken: refreshToken};
-        console.log(dataToken);
         const token = await db.insert(tableToken, dataToken);
         return token;
     }
     async removeToken(refreshToken){
         const refToken = await db.findByValue(tableToken, 'refreshToken', refreshToken);
-        if(await db.delete(tableToken, refToken.ID)){
+        console.log(refToken)
+        if(await db.delete(tableToken, refToken.id)){
             return refToken;
         }
         return null;
     }
-
     async findToken(refreshToken){
         const refToken = await db.findByValue(tableToken, 'refreshToken', refreshToken);
         return refToken;
