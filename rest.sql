@@ -71,8 +71,7 @@ CREATE TABLE users (
 CREATE TABLE event (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  date VARCHAR(255) NOT NULL,
-  images VARCHAR(255)
+  date VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE products (

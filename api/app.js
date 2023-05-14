@@ -19,7 +19,7 @@ const orderRoutes = require('./orders/orders.router')
 // Config
 const corsConfig = {
     origin: true,
-    credentials: true,
+    credentials: 'include',
   };
   
 app.use(cors(corsConfig));
