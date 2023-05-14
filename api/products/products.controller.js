@@ -13,7 +13,7 @@ class productsControllers{
     async getProductOne(req, res, next){
         try{
             const product = await productService.getProductOne(req.params.id)
-            return res.json(product);
+            return res.json(product[0]);
         } catch(e){
             next(e)
         }

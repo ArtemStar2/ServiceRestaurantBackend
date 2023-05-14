@@ -77,10 +77,11 @@ CREATE TABLE event (
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  description VARCHAR(255),
+  description TEXT,
   images VARCHAR(255),
   price VARCHAR(255) NOT NULL,
-  category VARCHAR(20) CHECK (category IN ('Еда', 'Напитки', 'Алкоголь')) NOT NULL
+  category VARCHAR(20) CHECK (category IN ('Еда', 'Напитки', 'Алкоголь')) NOT NULL,
+  stock BOOLEAN
 );
 
 CREATE TABLE tableStol (
