@@ -31,22 +31,17 @@ class TokenService{
     }
     async saveToken(userID, refreshToken){
         const tokenData = await db.findByValue(tableToken, 'userID', userID);
-        console.log("tokenData");
-        console.log(tokenData);
         if(tokenData){
-            console.log('YEST');
             const newData = { userID: userID, refreshToken: refreshToken };
             const affectedRows = await db.update(tableToken, newData, tokenData.id);
             return affectedRows;
         } 
-        console.log('NET');
         const dataToken = { userID: userID, refreshToken: refreshToken};
         const token = await db.insert(tableToken, dataToken);
         return token;
     }
     async removeToken(refreshToken){
         const refToken = await db.findByValue(tableToken, 'refreshToken', refreshToken);
-        console.log(refToken)
         if(await db.delete(tableToken, refToken.id)){
             return refToken;
         }
