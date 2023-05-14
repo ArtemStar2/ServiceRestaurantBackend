@@ -17,18 +17,12 @@ const orderRoutes = require('./orders/orders.router')
 // /Routers
 
 // Config
-const corsConfig = {
-    origin: true,
-    credentials: 'include',
-  };
-  
-app.use(cors(corsConfig));
-app.options('*', cors(corsConfig))
-// app.use(cors({
-//     credentials: true,
-//     origin: process.env.CLIENT_URL,
-//     methods: "GET,PUT,POST,DELETE",
-// }));
+
+app.use(cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+    methods: "GET,PUT,POST,DELETE",
+}));
 // app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
