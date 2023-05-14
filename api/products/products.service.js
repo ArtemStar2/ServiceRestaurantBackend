@@ -95,6 +95,8 @@ class productsService{
                 throw ApiError.BadRequest('Не удалось загрузить изображение')
             }
             data.images = imageUrl;
+        }else{
+            data.images = images;
         }
                   
         if(!await db.insert(tableBD, data)){
