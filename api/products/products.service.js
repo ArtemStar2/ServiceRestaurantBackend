@@ -84,10 +84,10 @@ class productsService{
             throw ApiError.BadRequest('Не выбрана категория')
         }
         
-        let candidate = await db.findByValue(tableBD, 'name', name);
-        if(candidate){
-            throw ApiError.BadRequest('Товар уже существует')
-        }
+        // let candidate = await db.findByValue(tableBD, 'name', name);
+        // if(candidate){
+        //     throw ApiError.BadRequest('Товар уже существует')
+        // }
         const imageUrl = FileService.saveFile(images);
         if(!imageUrl){
             throw ApiError.BadRequest('Не удалось загрузить изображение')
