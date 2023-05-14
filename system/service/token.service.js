@@ -29,6 +29,7 @@ class TokenService{
             return null;
         }
     }
+
     async saveToken(userID, refreshToken){
         const tokenData = await db.findByValue(tableToken, 'userID', userID);
         if(tokenData){
@@ -40,6 +41,7 @@ class TokenService{
         const token = await db.insert(tableToken, dataToken);
         return token;
     }
+    
     async removeToken(refreshToken){
         const refToken = await db.findByValue(tableToken, 'refreshToken', refreshToken);
         if(await db.delete(tableToken, refToken.id)){

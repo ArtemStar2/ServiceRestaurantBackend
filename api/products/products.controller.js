@@ -9,6 +9,7 @@ class productsControllers{
             next(e)
         }
     }
+    
     async getProductOne(req, res, next){
         try{
             const product = await productService.getProductOne(req.params.id)
@@ -17,6 +18,7 @@ class productsControllers{
             next(e)
         }
     }
+
     async upldateProduct(req, res, next){
         try{
             const { id, name, description, price, category, images } = req.body
@@ -38,6 +40,7 @@ class productsControllers{
             next(e)
         }
     }
+
     async deleteProduct(req, res, next){
         try{
             const { productId } = req.body
