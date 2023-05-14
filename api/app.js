@@ -18,29 +18,12 @@ const orderRoutes = require('./orders/orders.router')
 
 // Config
 
-// app.use(cors({
-//     credentials: true,
-//     origin: process.env.CLIENT_URL,
-//     methods: "GET,PUT,POST,DELETE",
-// }));
-app.use(function (req, res, next) {
-    var origins = [
-        'http://localhost:5173/',
-        'https://service-restaurant-admin-panel.vercel.app'
-    ];
+app.use(cors({
+    credentials: true,
+    origin: process.env.CLIENT_URL,
+    methods: "GET,PUT,POST,DELETE",
+}));
 
-    for(var i = 0; i < origins.length; i++){
-        var origin = origins[i];
-
-        if(req.headers.origin.indexOf(origin) > -1){
-            res.header('Access-Control-Allow-Origin', req.headers.origin);
-        }
-    }
-    
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
 // app.use(cors({origin: process.env.CLIENT_URL}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }));
