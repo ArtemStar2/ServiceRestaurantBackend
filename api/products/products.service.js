@@ -96,8 +96,6 @@ class productsService{
             }
             console.log(imageUrl);
             data.images = imageUrl;
-        }else{
-            data.images = images;
         }
                   
         if(!await db.insert(tableBD, data)){
