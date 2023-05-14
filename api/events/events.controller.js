@@ -20,7 +20,7 @@ class eventsControllers{
     async upldateEvent(req, res, next){
         try{
             const { id, name, date } = req.body
-            const userData = await eventService.upldateEvent(id, name, date, req.files?.images, req.user.role)
+            const userData = await eventService.upldateEvent(id, name, date, req.user.role)
             return res.status(200).json(userData);
         } catch(e){
             next(e)
@@ -30,7 +30,7 @@ class eventsControllers{
     async createEvent(req, res, next){
         try{
             const { name, date } = req.body
-            const userData = await eventService.createEvent(name, date, req.files?.images, req.user.role)
+            const userData = await eventService.createEvent(name, date, req.user.role)
             return res.status(200).json(userData);
         } catch(e){
             next(e)
