@@ -88,11 +88,15 @@ class productsService{
         // if(candidate){
         //     throw ApiError.BadRequest('Товар уже существует')
         // }
-        const imageUrl = FileService.saveFile(images);
-        if(!imageUrl){
-            throw ApiError.BadRequest('Не удалось загрузить изображение')
+        var data = {name: name, description: description, price: price, category: category}    
+        if(images){
+            const imageUrl = FileService.saveFile(images);
+            if(!imageUrl){
+                throw ApiError.BadRequest('Не удалось загрузить изображение')
+            }
+            data.images = imageUrl;
         }
-        var data = {name: name, description: description,images:imageUrl, price: price, category: category}              
+                  
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
