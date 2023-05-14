@@ -74,9 +74,9 @@ class productsService{
         if(!name){
             throw ApiError.BadRequest('Название отсутствует')
         }
-        // if(!images){
-        //     throw ApiError.BadRequest('Картинка отсутствует')
-        // }
+        if(!images){
+            throw ApiError.BadRequest('Картинка отсутствует')
+        }
         if(!price){
             throw ApiError.BadRequest('Цена отсутствует')
         }
@@ -94,6 +94,7 @@ class productsService{
             if(!imageUrl){
                 throw ApiError.BadRequest('Не удалось загрузить изображение')
             }
+            console.log(imageUrl);
             data.images = imageUrl;
         }else{
             data.images = images;
