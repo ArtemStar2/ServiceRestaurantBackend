@@ -56,7 +56,7 @@ class authControllers{
         try{
             const { refreshToken } = req.cookies;
             const userData = await authService.refresh(refreshToken)
-            res.cookie('refreshToken', userData.refreshToken, { maxAge: 30*24*60*60*1000})
+            res.cookie('refreshToken', userData.refreshToken, {  httpOnly: true, domain: 'https://service-restaurant-admin-panel.vercel.app', maxAge: 30*24*60*60*1000})
             return res.status(200).json(userData);
         } catch(e){
             next(e)
