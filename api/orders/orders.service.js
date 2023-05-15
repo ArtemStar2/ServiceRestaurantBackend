@@ -15,7 +15,6 @@ class ordersService{
         const arr = JSON.parse(string);
         const productOne = [];
         let cost = 0;
-        console.log('asdasdasdas');
         for (const item of arr) {
             var buff = {};
             const product = await db.findByID('products', item.id);
@@ -34,7 +33,6 @@ class ordersService{
             cost += parseInt(product[0]?.price) * item?.count;
             productOne.push(buff)
         }
-        console.log(productOne);
         return {
             productOne,
             cost
@@ -74,19 +72,20 @@ class ordersService{
     }
     
 
-    async createOrder(userId, products){
+    async createOrder(userId, products, table_id){
         if(!userId){
             throw ApiError.BadRequest('Пользователь отсутствует')
         }
         if(!products){
             throw ApiError.BadRequest('Товары отсутствуют')
         }
-        
-        var data = {userId: userId, products: products, date: new Date()}              
+        if(!table_id){
+            throw ApiError.BadRequest('Введите номер стола')
+        }
+        var data = {userId: userId, products: products, date: new Date(), table_id: table_id}              
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
-        
         return { 
             success: true,
             massage: "Заказ добавленый"
