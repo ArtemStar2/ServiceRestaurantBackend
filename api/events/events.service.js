@@ -25,16 +25,7 @@ class eventsService{
             throw ApiError.BadRequest('Доступ только администраторам')
         }
         let candidate = await db.findByID(tableBD, id);
-        var data = {};
-        if(name){
-            data.name = name;
-        }
-        if(date){
-            data.date = date;
-        }
-        if(description){
-            data.description = description;
-        }
+        var data = {name: name, date: date, description: description};
         if(!await db.update(tableBD, data, candidate.id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }

@@ -20,6 +20,7 @@ class eventsControllers{
     async upldateEvent(req, res, next){
         try{
             const { id, name, date, description } = req.body
+            console.log(description);
             const userData = await eventService.upldateEvent(id, name, date, description, req.user.role)
             return res.status(200).json(userData);
         } catch(e){
