@@ -32,7 +32,7 @@ bot.on('message', async msg => {
             reply_markup: {
                 inline_keyboard: [
                     [{text: 'Меню', web_app:{url: webAppUrl + 'menu/'}}],
-                    [{text: 'Мероприятие', callback_data: 'events'}],
+                    [{text: 'Мероприятие', web_app:{url: webAppUrl + 'events/'}}],
                     [{text: 'Позвать официанта', callback_data: 'waiter'}],
                     [{text: 'Забронировать стол', callback_data: 'table'}],
                     [{text: 'Наши контакты', callback_data: 'contact'}],

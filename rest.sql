@@ -71,9 +71,11 @@ CREATE TABLE users (
 CREATE TABLE event (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
+  description TEXT,
+  images VARCHAR(255),
   date VARCHAR(255) NOT NULL
 );
-
+-- INSERT INTO event (name, images, date) VALUES ('Test1', '1.jpg', '2023-05-15T04:11:08');
 CREATE TABLE products (
   id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,

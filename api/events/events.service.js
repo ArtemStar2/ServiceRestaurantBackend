@@ -20,7 +20,7 @@ class eventsService{
         return users;
     }
 
-    async upldateEvent(id, name, date, images, role){
+    async upldateEvent(id, name, date, description, role){
         if(role != "admin"){
             throw ApiError.BadRequest('Доступ только администраторам')
         }
@@ -32,6 +32,9 @@ class eventsService{
         if(date){
             data.date = date;
         }
+        if(description){
+            data.description = description;
+        }
         if(!await db.update(tableBD, data, candidate.id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }
@@ -42,7 +45,7 @@ class eventsService{
     }
     
 
-    async createEvent(name, date, role){
+    async createEvent(name, date, description, role){
         if(role != "admin"){
             throw ApiError.BadRequest('Доступ только администраторам')
         }
@@ -56,7 +59,7 @@ class eventsService{
         if(candidate){
             throw ApiError.BadRequest('На эту дату уже есть Мароприятие')
         }
-        var data = {name: name, date: date}             
+        var data = {name: name, date: date, description:description}             
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
