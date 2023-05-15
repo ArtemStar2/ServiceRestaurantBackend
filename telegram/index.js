@@ -34,7 +34,7 @@ bot.on('message', async msg => {
                     [{text: 'Меню', web_app:{url: webAppUrl + 'menu/'}}],
                     [{text: 'Мероприятие', web_app:{url: webAppUrl + 'event/'}}],
                     [{text: 'Позвать официанта', callback_data: 'waiter'}],
-                    [{text: 'Забронировать стол', web_app:{url: webAppUrl + 'event/'}}],
+                    [{text: 'Забронировать стол', web_app:{url: webAppUrl + 'table/'}}],
                     [{text: 'Наши контакты', callback_data: 'contact'}],
                     [{text: 'Профиль', callback_data: 'profile'}],
                 ]
