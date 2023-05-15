@@ -76,7 +76,7 @@ class ordersService{
     }
     
 
-    async createOrder(userId, products, date){
+    async createOrder(userId, products){
         if(!userId){
             throw ApiError.BadRequest('Пользователь отсутствует')
         }
@@ -84,7 +84,7 @@ class ordersService{
             throw ApiError.BadRequest('Товары отсутствуют')
         }
         
-        var data = {userId: userId, products: products, date: new Date()}              
+        var data = {userId: userId, products: products, date: new Date().replace(/\:\d{2}\.\d+Z$/, '')}              
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }

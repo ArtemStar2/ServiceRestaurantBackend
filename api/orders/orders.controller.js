@@ -37,8 +37,8 @@ class eventsControllers{
     
     async createOrder(req, res, next){
         try{
-            const { products, date} = req.body
-            const userData = await ordersService.createOrder(req.user.id, products, date)
+            const { products } = req.body
+            const userData = await ordersService.createOrder(req.user.id, products)
             return res.status(200).json(userData);
         } catch(e){
             next(e)
