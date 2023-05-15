@@ -25,7 +25,7 @@ bot.on('callback_query', msg =>{
     const data = msg.data;
     const chatId = msg.message.chat.id;
     if(data == 'menu'){
-        console.log('menu')
+        console.log('Профиль')
     }
     console.log(msg);
 })
@@ -39,7 +39,7 @@ bot.on('message', async msg => {
             reply_markup: {
                 inline_keyboard: [
                     [{text: 'Меню', web_app:{url: webAppUrl + 'menu/'}}],
-                    [{text: 'Мероприятие', callback_data: 'events'}],
+                    [{text: 'Мероприятие', web_app:{url: webAppUrl + 'events/'}}],
                     [{text: 'Позвать официанта', callback_data: 'waiter'}],
                     [{text: 'Забронировать стол', callback_data: 'table'}],
                     [{text: 'Наши контакты', callback_data: 'contact'}],
@@ -56,13 +56,6 @@ bot.on('message', async msg => {
                 ]
             }
         })
-    }
-    if(text == "/events"){
-        return bot.sendMessage(chatId, `Меню`)
-    }
-    if(text == "/waiter"){
-        return bot.sendMessage(chatId, `Напишите номер стола:`)
-
     }
     return bot.sendMessage(chatId, `Неверная команда`)
 })
