@@ -21,9 +21,8 @@ class productsControllers{
 
     async upldateProduct(req, res, next){
         try{
-            const { id, name, description, price, category, images } = req.body
-            // req.files?.images
-            const userData = await productService.upldateProduct(id, name, description, images, price, category, req.user.role)
+            const { id, name, description, price, category, price_old } = req.body
+            const userData = await productService.upldateProduct(id, name, description, req.files?.images, price, category, price_old, req.user.role)
             return res.status(200).json(userData);
         } catch(e){
             next(e)
@@ -32,9 +31,9 @@ class productsControllers{
     
     async createProduct(req, res, next){
         try{
-            const { name, description, price, category, images } = req.body
+            const { name, description, price, category, price_old } = req.body
             // 
-            const userData = await productService.createProduct(name, description, req.files?.images, price, category, req.user.role)
+            const userData = await productService.createProduct(name, description, req.files?.images, price, category, price_old, req.user.role)
             return res.status(200).json(userData);
         } catch(e){
             next(e)

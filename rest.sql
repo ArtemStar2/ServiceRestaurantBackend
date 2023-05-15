@@ -80,6 +80,7 @@ CREATE TABLE products (
   description TEXT,
   images VARCHAR(255),
   price VARCHAR(255) NOT NULL,
+  price_old VARCHAR(255),
   category VARCHAR(20) CHECK (category IN ('Еда', 'Напитки', 'Алкоголь')) NOT NULL,
   stock BOOLEAN
 );

@@ -20,7 +20,7 @@ class productsService{
         return users;
     }
 
-    async upldateProduct(id, name, description, images, price, category, role){
+    async upldateProduct(id, name, description, images, price, category, price_old, role){
         if(role != "admin"){
             throw ApiError.BadRequest('Доступ только администраторам')
         }
@@ -34,7 +34,7 @@ class productsService{
         if(description){
             data.description = description;
         }
-        if(images){
+        if(images && false){
             // console.log(candidate);
             if(candidate.images){
                 fs.access(path.join(__dirname,'../../uploads/') + candidate.images, function(error){
@@ -52,6 +52,12 @@ class productsService{
         if(price){
             data.price = price;
         }
+        if(price_old){
+            data.price_old = price_old;
+            data.stock = true;
+        }else{
+            data.stock = false;
+        }
         if(category){
             data.category = category;
         }
@@ -67,14 +73,14 @@ class productsService{
     }
     
 
-    async createProduct(name, description, images, price, category, role){
+    async createProduct(name, description, images, price, category, price_old, role){
         if(role != "admin"){
             throw ApiError.BadRequest('Доступ только администраторам')
         }
         if(!name){
             throw ApiError.BadRequest('Название отсутствует')
         }
-        if(!images){
+        if(!images && false){
             throw ApiError.BadRequest('Картинка отсутствует')
         }
         if(!price){
@@ -88,13 +94,17 @@ class productsService{
         // if(candidate){
         //     throw ApiError.BadRequest('Товар уже существует')
         // }
-        var data = {name: name, description: description, price: price, category: category}    
-        if(images){
+        var data = {name: name, description: description, price: price, category: category, price_old: price_old}
+        if(price_old){
+            data.stock = true;
+        }else{
+            data.stock = false;
+        }
+        if(images && false){
             const imageUrl = FileService.saveFile(images);
             if(!imageUrl){
                 throw ApiError.BadRequest('Не удалось загрузить изображение')
             }
-            console.log(imageUrl);
             data.images = imageUrl;
         }
                   
