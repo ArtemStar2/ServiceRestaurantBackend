@@ -159,7 +159,7 @@ class SqlDatabase {
   
     try {
       const result = await this.query(sql, params);
-      return result.rowCount;
+      return true;
     } catch (error) {
       console.error(`Error updating record in table ${table}: ${error}`);
       throw error;
