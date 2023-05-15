@@ -23,16 +23,7 @@ bot.on('message', async msg => {
 
     if(text == '/start'){
         return bot.sendMessage(chatId, `Вы запустили ресторан бота`, {
-            reply_markup: {
-                inline_keyboard: [
-                    [{text: 'Меню', web_app:{url: webAppUrl + 'menu/'}}],
-                    [{text: 'Мероприятие', web_app:{url: webAppUrl + 'event/'}}],
-                    [{text: 'Позвать официанта', callback_data: 'waiter'}],
-                    [{text: 'Забронировать стол', web_app:{url: webAppUrl + 'table/'}}],
-                    [{text: 'Наши контакты', callback_data: 'contact'}],
-                    [{text: 'Профиль', callback_data: 'profile'}],
-                ]
-            }
+            reply_markup:  { remove_keyboard: true },
         })
     }
     return bot.sendMessage(chatId, `Неверная команда`)
