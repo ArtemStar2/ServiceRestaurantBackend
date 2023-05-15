@@ -90,11 +90,10 @@ CREATE TABLE products (
 CREATE TABLE tableStol (
   id SERIAL PRIMARY KEY,
   userId VARCHAR(255) NOT NULL,
-  dateStart VARCHAR(255) NOT NULL,
-  dateEnd VARCHAR(255) NOT NULL,
-  table_id VARCHAR(255)
+  date VARCHAR(255) NOT NULL,
+  event VARCHAR(255)
 );
-
+-- INSERT INTO tableStol (name, images, date) VALUES ('Test1', '1.jpg', '2023-05-15T04:11:08');
 CREATE TABLE contacts (
   id SERIAL PRIMARY KEY,
   phone VARCHAR(255),

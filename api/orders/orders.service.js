@@ -49,8 +49,6 @@ class ordersService{
         if(role != "admin"){
             throw ApiError.BadRequest('Доступ только администраторам')
         }
-        
-        let candidate = await db.findByID(tableBD, id);
         var data = {};
         if(userId){
             data.userId = userId;
@@ -61,7 +59,7 @@ class ordersService{
         if(date){
             data.date = date;
         }
-        if(!await db.update(tableBD, data, candidate.id)){
+        if(!await db.update(tableBD, data, id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }
         

@@ -19,21 +19,18 @@ class tableService{
         return table;
     }
 
-    async upldateTable(id, dateStart, dateEnd, table_id, iduser, role){
+    async upldateTable(id, date, event, iduser, role){
         
         let candidate = await db.findByID(tableBD, id);
         if(role != "admin" && iduser != candidate.userId){
             throw ApiError.BadRequest('Доступ только администраторам')
         }
         var data = {};
-        if(dateStart){
-            data.dateStart = dateStart;
+        if(date){
+            data.date = date;
         }
-        if(dateEnd){
-            data.dateEnd = dateEnd;
-        }
-        if(table_id){
-            data.table_id = table_id;
+        if(event){
+            data.event = event;
         }
         if(!await db.update(tableBD, data, id)){
             throw ApiError.BadRequest('Ошибка при изменении')
@@ -45,27 +42,15 @@ class tableService{
         }
     }
 
-    async createTable(userId, dateStart, dateEnd, table_id){
+    async createTable(userId, date, event){
         if(!userId){
             throw ApiError.BadRequest('Ошибка!')
         }
-        if(!dateStart){
-            throw ApiError.BadRequest('Отсутствует дата начала брони')
+        if(!date){
+            throw ApiError.BadRequest('Отсутствует дата брони')
         }
-        if(!dateEnd){
-            throw ApiError.BadRequest('Отсутствует дата конца брони')
-        }
-        if(!table_id){
-            throw ApiError.BadRequest('Отсутствует номер стола')
-        }
-        
-        const tables = await db.getAll(tableBD);
-        tables.forEach(element => {
-            if(!checkDateOverlap(new Date(element.dateStart), new Date(element.dateEnd), new Date(dateStart), new Date(dateEnd))){
-                throw ApiError.BadRequest('На эту дату уже есть бронь')
-            }
-        });
-        var data = {userId: userId, dateStart: dateStart, dateEnd:dateEnd, table_id: table_id}              
+
+        var data = {userId: userId, date: date, event:event}              
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }

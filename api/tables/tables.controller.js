@@ -19,8 +19,8 @@ class tablesControllers{
     }
     async createTable(req, res, next){
         try{
-            const { dateStart, dateEnd, table_id } = req.body
-            const userData = await tablesService.createTable(req.user.id, dateStart, dateEnd, table_id)
+            const { date, event } = req.body
+            const userData = await tablesService.createTable(req.user.id, date, event)
             return res.status(200).json(userData);
         } catch(e){
             next(e)
@@ -37,8 +37,8 @@ class tablesControllers{
     }
     async upldateTable(req, res, next){
         try{
-            const { id, dateStart, dateEnd, table_id } = req.body
-            const userData = await tablesService.upldateTable(id, dateStart, dateEnd, table_id,  req.user.id, req.user.role)
+            const { id, date, event } = req.body
+            const userData = await tablesService.upldateTable(id, date, event,  req.user.id, req.user.role)
             return res.status(200).json(userData);
         } catch(e){
             next(e)
