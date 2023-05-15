@@ -43,7 +43,10 @@ class tableService{
             throw ApiError.BadRequest('Отсутствует дата брони')
         }
 
-        var data = {userId: userId, date: date, event:event}  
+        var data = {userId: userId, date: date}  
+        if(event){
+            data.event = event;
+        }
         console.log(data);            
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
