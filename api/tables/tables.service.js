@@ -2,20 +2,13 @@ const db = require('../../system/scripts/database/index')
 const ApiError = require('../../system/scripts/error/api.error')
 const tableBD = 'tableStol';
 
-function checkDateOverlap(start1, end1, start2, end2) {
-    return (start1 < end1 && start2 < end2 && end1 <= start2) || (start1 > end1 && start2 > end2 && end2 <= start1);
-}
 class tableService{
     async getAllTables(){
-        
         const tables = await db.getAll(tableBD);
-        
         return tables;
     }
     async getTableOne(id){
-        
         const table = await db.findByID(tableBD, id);
-        
         return table;
     }
 
@@ -43,7 +36,7 @@ class tableService{
     }
 
     async createTable(userId, date, event = ''){
-        console.log(userId, date, event);
+        console.log(data);
         if(!userId){
             throw ApiError.BadRequest('Ошибка!')
         }
@@ -51,7 +44,8 @@ class tableService{
             throw ApiError.BadRequest('Отсутствует дата брони')
         }
 
-        var data = {userId: userId, date: date, event:event}              
+        var data = {userId: userId, date: date, event:event}  
+        console.log(data);            
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
