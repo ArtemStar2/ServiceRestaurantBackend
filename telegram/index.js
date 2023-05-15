@@ -6,12 +6,6 @@ const webAppUrl = 'https://service-restaurant-admin-panel.vercel.app/';
 
 bot.setMyCommands([
     {command: "/start", description: "Запустить бота"},
-    {command: "/menu", description: "Меню"},
-    {command: "/events", description: "Мероприятие"},
-    {command: "/waiter", description: "Позвать официанта"},
-    {command: "/table", description: "Забронировать стол"},
-    {command: "/contact", description: "Наши контакты"},
-    {command: "/profile", description: "Профиль"}
 ])
 
 bot.on('callback_query', msg =>{
@@ -40,21 +34,6 @@ bot.on('message', async msg => {
                 ]
             }
         })
-    }
-    if(text == "/menu"){
-        return bot.sendMessage(chatId, `Меню`, {
-            reply_markup: {
-                inline_keyboard: [
-                    [{text: 'Меню', web_app:{url: webAppUrl}}],
-                ]
-            }
-        })
-    }
-    if(text == "/events"){
-        return bot.sendMessage(chatId, `Меню`)
-    }
-    if(text == "/waiter"){
-        return bot.sendMessage(chatId, `Напишите номер стола:`)
     }
     return bot.sendMessage(chatId, `Неверная команда`)
 })
