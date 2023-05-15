@@ -21,6 +21,7 @@ class ordersService{
             var buff = {};
             console.log(item);
             const product = await db.findByID('products', item.id);
+            console.log(product);
             if(!product){
                 buff.id = 0;
                 buff.name = "Товар не найден";
@@ -33,7 +34,7 @@ class ordersService{
             cost += parseInt(product?.price) * item.count;
             productOne.push(buff)
         }
-        
+        console.log(productOne);
         return {
             productOne,
             cost
