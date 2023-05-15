@@ -16,11 +16,9 @@ class ordersService{
         const productOne = [];
         let cost = 0;
         console.log('asdasdasdas');
-        console.log(arr);
         for (const item of arr) {
             var buff = {};
-            console.log(item);
-            const product = await db.findByID('products', item.id)[0];
+            const product = await db.findByID('products', item.id);
             console.log(product);
             if(!product){
                 buff.id = 0;

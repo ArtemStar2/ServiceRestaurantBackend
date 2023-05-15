@@ -92,9 +92,6 @@ class SqlDatabase {
 
   async query(sql, params) {
     const client = await db.connect();
-    console.log("sql")
-    console.log(sql)
-    console.log(params);
     try {
       const result = await client.query(sql, params);
       return result.rows;
