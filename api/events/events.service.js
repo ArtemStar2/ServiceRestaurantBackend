@@ -49,7 +49,9 @@ class eventsService{
         if(!name){
             throw ApiError.BadRequest('Название отсутствует')
         }
-        
+        if(!date){
+            throw ApiError.BadRequest('Дата отсутствует')
+        }
         let candidate = await db.findByValue(tableBD, 'date', date);
         if(candidate){
             throw ApiError.BadRequest('На эту дату уже есть Мароприятие')
