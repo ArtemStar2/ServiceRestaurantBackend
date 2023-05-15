@@ -29,7 +29,8 @@ class eventsControllers{
     
     async createEvent(req, res, next){
         try{
-            const { name, description, date } = req.body
+            const { name, date, description } = req.body
+            console.log(description);
             const userData = await eventService.createEvent(name, date, description, req.user.role)
             return res.status(200).json(userData);
         } catch(e){

@@ -40,7 +40,7 @@ class eventsService{
         }
         return { 
             success: true,
-            massage: "Мароприятие изменёно"
+            massage: "Мeроприятие изменёно"
         }
     }
     
@@ -59,14 +59,14 @@ class eventsService{
         if(candidate){
             throw ApiError.BadRequest('На эту дату уже есть Мароприятие')
         }
-        var data = {name: name, date: date, description:description}             
+        var data = {name: name, date: date, description: description}             
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
         
         return { 
             success: true,
-            massage: "Мароприятие добавлено"
+            massage: "Мeроприятие добавлено"
         }
     }
 
@@ -85,7 +85,7 @@ class eventsService{
         
         return { 
             success: true,
-            massage: "Мароприятие удалёно"
+            massage: "Мeроприятие удалёно"
         }
     }
 }
