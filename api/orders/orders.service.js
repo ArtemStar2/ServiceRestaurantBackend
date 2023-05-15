@@ -20,7 +20,7 @@ class ordersService{
         for (const item of arr) {
             var buff = {};
             console.log(item);
-            const product = await db.findByID('products', item.id);
+            const product = await db.findByID('products', item.id)[0];
             console.log(product);
             if(!product){
                 buff.id = 0;
