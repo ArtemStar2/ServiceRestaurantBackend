@@ -2,11 +2,6 @@ const db = require('../../system/scripts/database/index')
 const ApiError = require('../../system/scripts/error/api.error')
 const tableBD = 'orders';
 
-function convertStringToArray(inputString) {
-    const array = inputString.split(',');
-    const result = array.map((item) => parseInt(item.trim()));
-    return result;
-}
 
 class ordersService{
     async getAllOrders(){
@@ -17,12 +12,12 @@ class ordersService{
     }
     async productString(string){
         
-        const arr = convertStringToArray(string);
+        const arr = JSON.parse(string);
         const productOne = [];
         let cost = 0;
         for (const item of arr) {
             var buff = {};
-            const product = await db.findByID('products', item);
+            const product = await db.findByID('products', item.id);
             if(!product){
                 buff.id = 0;
                 buff.name = "Товар не найден";
@@ -32,8 +27,7 @@ class ordersService{
                 buff.name = product.name;
                 buff.price = product.price;
             }
-            
-            cost += parseInt(product?.price);
+            cost += parseInt(product?.price) * item.count;
             productOne.push(buff)
         }
         
