@@ -15,8 +15,11 @@ class ordersService{
         const arr = JSON.parse(string);
         const productOne = [];
         let cost = 0;
+        console.log('asdasdasdas');
+        console.log(arr);
         for (const item of arr) {
             var buff = {};
+            console.log(item);
             const product = await db.findByID('products', item.id);
             if(!product){
                 buff.id = 0;
