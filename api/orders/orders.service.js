@@ -19,17 +19,17 @@ class ordersService{
         for (const item of arr) {
             var buff = {};
             const product = await db.findByID('products', item.id);
-            console.log(product);
-            if(!product){
+            console.log(product[0]);
+            if(product.length == 0){
                 buff.id = 0;
                 buff.name = "Товар не найден";
                 buff.price = 0;
             }else{
-                buff.id = product.id;
-                buff.name = product.name;
-                buff.price = product.price;
+                buff.id = product[0].id;
+                buff.name = product[0].name;
+                buff.price = product[0].price;
             }
-            cost += parseInt(product?.price) * item.count;
+            cost += parseInt(product[0]?.price) * item[0]?.count;
             productOne.push(buff)
         }
         console.log(productOne);
