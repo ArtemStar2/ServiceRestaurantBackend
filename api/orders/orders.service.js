@@ -24,12 +24,14 @@ class ordersService{
                 buff.id = 0;
                 buff.name = "Товар не найден";
                 buff.price = 0;
+                buff.count = 0;
             }else{
                 buff.id = product[0].id;
                 buff.name = product[0].name;
                 buff.price = product[0].price;
+                buff.count = item.count;
             }
-            cost += parseInt(product[0]?.price) * item[0]?.count;
+            cost += parseInt(product[0]?.price) * item?.count;
             productOne.push(buff)
         }
         console.log(productOne);
