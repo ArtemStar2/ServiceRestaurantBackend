@@ -20,6 +20,7 @@ class tablesControllers{
     async createTable(req, res, next){
         try{
             const { date, event } = req.body
+            console.log(req.user);
             const userData = await tablesService.createTable(req.user.id, date, event)
             return res.status(200).json(userData);
         } catch(e){
