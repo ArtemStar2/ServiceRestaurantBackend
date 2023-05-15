@@ -22,46 +22,52 @@ bot.setMyCommands([
 
 
 const startBot = () => {
-    bot.on('message', async (msg) => {
-        const chatId = msg.chat.id;
+    bot.on('callback_query', msg =>{
+        const data = msg.data;
+        const chatId = msg.message.chat.id;
+        if(data == 'menu'){
+            console.log('menu')
+        }
+        console.log(msg);
+    })
+
+    bot.on('message', async msg => {
         const text = msg.text;
+        const chatId = msg.chat.id;
     
-        if(text === '/start') {
-            await bot.sendMessage(chatId, 'Ниже появится кнопка, заполни форму', {
-                reply_markup: {
-                    keyboard: [
-                        [{text: 'Заполнить форму', web_app: {url: webAppUrl + '/menu'}}]
-                    ]
-                }
-            })
-    
-            await bot.sendMessage(chatId, 'Заходи в наш интернет магазин по кнопке ниже', {
+        if(text == '/start'){
+            return bot.sendMessage(chatId, `Вы запустили ресторан бота`, {
                 reply_markup: {
                     inline_keyboard: [
-                        [{text: 'Сделать заказ', web_app: {url: webAppUrl}}]
+                        [{text: 'Меню', web_app:{url: webAppUrl + 'menu/'}}],
+                        [{text: 'Мероприятие', callback_data: 'events'}],
+                        [{text: 'Позвать официанта', callback_data: 'waiter'}],
+                        [{text: 'Забронировать стол', callback_data: 'table'}],
+                        [{text: 'Наши контакты', callback_data: 'contact'}],
+                        [{text: 'Профиль', callback_data: 'profile'}],
                     ]
                 }
             })
         }
-    
-        if(msg?.web_app_data?.data) {
-            try {
-                const data = JSON.parse(msg?.web_app_data?.data)
-                console.log(data)
-                await bot.sendMessage(chatId, 'Спасибо за обратную связь!')
-                await bot.sendMessage(chatId, 'Ваша страна: ' + data?.country);
-                await bot.sendMessage(chatId, 'Ваша улица: ' + data?.street);
-    
-                setTimeout(async () => {
-                    await bot.sendMessage(chatId, 'Всю информацию вы получите в этом чате');
-                }, 3000)
-            } catch (e) {
-                console.log(e);
-            }
+        if(text == "/menu"){
+            return bot.sendMessage(chatId, `Меню`, {
+                reply_markup: {
+                    inline_keyboard: [
+                        [{text: 'Меню', web_app:{url: webAppUrl}}],
+                    ]
+                }
+            })
         }
-    });
-}
+        if(text == "/events"){
+            return bot.sendMessage(chatId, `Меню`)
+        }
+        if(text == "/waiter"){
+            return bot.sendMessage(chatId, `Напишите номер стола:`)
 
+        }
+        return bot.sendMessage(chatId, `Неверная команда`)
+    })
+}
 startBot()
 
 
