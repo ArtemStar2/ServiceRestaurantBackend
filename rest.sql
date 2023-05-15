@@ -91,8 +91,10 @@ CREATE TABLE tableStol (
   id SERIAL PRIMARY KEY,
   userId VARCHAR(255) NOT NULL,
   date VARCHAR(255) NOT NULL,
+  table_id VARCHAR(255) NOT NULL,
   event VARCHAR(255)
 );
+-- ALTER TABLE tableStol ADD COLUMN table_id VARCHAR(255) NOT NULL;
 -- INSERT INTO tableStol (name, images, date) VALUES ('Test1', '1.jpg', '2023-05-15T04:11:08');
 CREATE TABLE contacts (
   id SERIAL PRIMARY KEY,

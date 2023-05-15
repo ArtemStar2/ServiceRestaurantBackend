@@ -12,7 +12,7 @@ class tableService{
         return table;
     }
 
-    async upldateTable(id, date, event, iduser, role){
+    async upldateTable(id, date, event, iduser, table_id, role){
         
         let candidate = await db.findByID(tableBD, id);
         if(role != "admin" && iduser != candidate.userId){
@@ -25,6 +25,9 @@ class tableService{
         if(event){
             data.event = event;
         }
+        if(table_id){
+            data.table_id = table_id;
+        }
         if(!await db.update(tableBD, data, id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }
@@ -35,15 +38,17 @@ class tableService{
         }
     }
 
-    async createTable(userId, date, event = ''){
+    async createTable(userId, date, event = '', table_id){
         if(!userId){
             throw ApiError.BadRequest('Ошибка!')
         }
         if(!date){
             throw ApiError.BadRequest('Отсутствует дата брони')
         }
-
-        var data = {userId: userId, date: date}  
+        if(!table_id){
+            throw ApiError.BadRequest('Укажите столик')
+        }
+        var data = {userId: userId, date: date, table_id: table_id}  
         if(event){
             data.event = event;
         }
