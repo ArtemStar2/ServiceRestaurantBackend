@@ -84,7 +84,7 @@ class ordersService{
             throw ApiError.BadRequest('Товары отсутствуют')
         }
         
-        var data = {userId: userId, products: products, date: new Date().replace(/\:\d{2}\.\d+Z$/, '')}              
+        var data = {userId: userId, products: products, date: new Date()}              
         if(!await db.insert(tableBD, data)){
             throw ApiError.BadRequest('Ошибка при создании')
         }
