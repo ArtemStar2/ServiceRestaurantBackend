@@ -67,7 +67,7 @@ const startBot = () => {
         return bot.sendMessage(chatId, `Неверная команда`)
     })
 }
-startBot()
+// startBot()
 
 
 const start = async () => {
