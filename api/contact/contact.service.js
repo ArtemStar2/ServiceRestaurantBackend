@@ -19,7 +19,7 @@ class eventsService{
         
         let candidate = await db.findByID(tableBD, id);
         var data = {phone: phone, email: email, telegram: telegram, website: website}  
-        if(!await db.update(tableBD, data, candidate.id)){
+        if(!await db.update(tableBD, data, id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }
         
