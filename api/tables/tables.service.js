@@ -36,7 +36,6 @@ class tableService{
     }
 
     async createTable(userId, date, event = ''){
-        console.log(data);
         if(!userId){
             throw ApiError.BadRequest('Ошибка!')
         }
