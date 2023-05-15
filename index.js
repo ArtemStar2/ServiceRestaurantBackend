@@ -25,7 +25,7 @@ bot.on('callback_query', msg =>{
     const data = msg.data;
     const chatId = msg.message.chat.id;
     if(data == 'menu'){
-        console.log('Профиль')
+        console.log('menu')
     }
     console.log(msg);
 })
@@ -39,7 +39,7 @@ bot.on('message', async msg => {
             reply_markup: {
                 inline_keyboard: [
                     [{text: 'Меню', web_app:{url: webAppUrl + 'menu/'}}],
-                    [{text: 'Мероприятие', web_app:{url: webAppUrl + 'events/'}}],
+                    [{text: 'Мероприятие', callback_data: 'events'}],
                     [{text: 'Позвать официанта', callback_data: 'waiter'}],
                     [{text: 'Забронировать стол', callback_data: 'table'}],
                     [{text: 'Наши контакты', callback_data: 'contact'}],
