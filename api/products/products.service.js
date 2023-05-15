@@ -62,7 +62,7 @@ class productsService{
             data.category = category;
         }
         console.log(data);
-        if(!await db.update(tableBD, data, candidate.id)){
+        if(!await db.update(tableBD, data, id)){
             throw ApiError.BadRequest('Ошибка при изменении')
         }
         
