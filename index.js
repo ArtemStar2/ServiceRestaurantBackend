@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 8080
 const token = '6190170133:AAEumUhRkTDn0MJ7hN4F8U2BPxemn1Q4WQI';
 const bot = new TelegramApi(token, {polling: true})
 
-const chat = {}
 const webAppUrl = 'https://service-restaurant-admin-panel.vercel.app/';
 
 bot.setMyCommands([
