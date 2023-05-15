@@ -32,9 +32,9 @@ bot.on('message', async msg => {
             reply_markup: {
                 inline_keyboard: [
                     [{text: 'Меню', web_app:{url: webAppUrl + 'menu/'}}],
-                    [{text: 'Мероприятие', web_app:{url: webAppUrl + 'events/'}}],
+                    [{text: 'Мероприятие', web_app:{url: webAppUrl + 'event/'}}],
                     [{text: 'Позвать официанта', callback_data: 'waiter'}],
-                    [{text: 'Забронировать стол', callback_data: 'table'}],
+                    [{text: 'Забронировать стол', web_app:{url: webAppUrl + 'event/'}}],
                     [{text: 'Наши контакты', callback_data: 'contact'}],
                     [{text: 'Профиль', callback_data: 'profile'}],
                 ]
@@ -55,7 +55,6 @@ bot.on('message', async msg => {
     }
     if(text == "/waiter"){
         return bot.sendMessage(chatId, `Напишите номер стола:`)
-
     }
     return bot.sendMessage(chatId, `Неверная команда`)
 })
