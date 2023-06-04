@@ -16,8 +16,6 @@ class eventsService{
         if(role != "admin"){
             throw ApiError.BadRequest('Доступ только администраторам')
         }
-        
-        let candidate = await db.findByID(tableBD, id);
         var data = {phone: phone, email: email, telegram: telegram, website: website}  
         if(!await db.update(tableBD, data, id)){
             throw ApiError.BadRequest('Ошибка при изменении')
